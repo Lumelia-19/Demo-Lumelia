@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Inbox from './pages/Inbox';
 import QuoteDetail from './pages/QuoteDetail';
 import Activity from './pages/Activity';
+import Settings from './pages/Settings';
 
 function Placeholder({ title }) {
   return (
@@ -24,7 +25,7 @@ export default function App() {
           <Route path="inbox" element={<Inbox />} />
           <Route path="devis" element={<QuoteDetail />} />
           <Route path="activite" element={<Activity />} />
-          <Route path="parametres" element={<Placeholder title="Paramètres" />} />
+          <Route path="parametres" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>
