@@ -1,16 +1,28 @@
-# React + Vite
+# Leadger — Demo Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+POC frontend de la démo Leadger, un SaaS B2B de gestion de leads et devis par agents IA.
 
-Currently, two official plugins are available:
+Stack : React 19 + Vite + Tailwind CSS v4 + React Router.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Lancer le projet
 
-## React Compiler
+```bash
+# 1. Cloner le repo
+git clone <url-du-repo>
+cd demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2. Installer les dépendances
+npm install
 
-## Expanding the ESLint configuration
+# 3. Démarrer le serveur de développement
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+L'application est accessible sur [http://localhost:5173](http://localhost:5173).
+
+## Build de production
+
+```bash
+npm run build
+npm run preview
+```
