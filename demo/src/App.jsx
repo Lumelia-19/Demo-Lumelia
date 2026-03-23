@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Inbox from './pages/Inbox';
 import QuoteDetail from './pages/QuoteDetail';
+import Activity from './pages/Activity';
 
 function Placeholder({ title }) {
   return (
@@ -22,7 +23,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="inbox" element={<Inbox />} />
           <Route path="devis" element={<QuoteDetail />} />
-          <Route path="activite" element={<Placeholder title="Activité" />} />
+          <Route path="activite" element={<Activity />} />
           <Route path="parametres" element={<Placeholder title="Paramètres" />} />
         </Route>
       </Routes>
