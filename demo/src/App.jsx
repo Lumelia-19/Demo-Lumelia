@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Inbox from './pages/Inbox';
+import QuoteDetail from './pages/QuoteDetail';
 
 function Placeholder({ title }) {
   return (
@@ -20,7 +21,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="inbox" element={<Inbox />} />
-          <Route path="devis" element={<Placeholder title="Devis" />} />
+          <Route path="devis" element={<QuoteDetail />} />
           <Route path="activite" element={<Placeholder title="Activité" />} />
           <Route path="parametres" element={<Placeholder title="Paramètres" />} />
         </Route>
