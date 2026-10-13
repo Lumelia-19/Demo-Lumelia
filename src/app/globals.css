@@ -334,6 +334,9 @@ html:not(.js) .preloader {
     background-size: 0% 82%;
     color: inherit;
   }
+  [data-scroll-words] > span {
+    opacity: 1 !important;
+  }
   .grain {
     display: none;
   }

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
+import { motion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useRef } from 'react';
 
 function Word({ word, range, progress }: { word: string; range: [number, number]; progress: MotionValue<number> }) {
@@ -12,16 +12,15 @@ function Word({ word, range, progress }: { word: string; range: [number, number]
   );
 }
 
-// A statement whose words light up as it scrolls through the viewport.
+// A statement whose words light up as it scrolls through the viewport. The markup never depends on the
+// reduced-motion setting, so it hydrates cleanly; globals.css shows every word at full strength instead.
 export function ScrollWords({ text, className }: { text: string; className?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.88', 'end 0.42'] });
   const words = text.split(' ');
 
-  if (reduced) return <p className={className}>{text}</p>;
   return (
-    <p ref={ref} className={className}>
+    <p ref={ref} data-scroll-words="" className={className}>
       {words.map((word, i) => (
         <Word key={i} word={word} progress={scrollYProgress} range={[i / words.length, (i + 1) / words.length]} />
       ))}
