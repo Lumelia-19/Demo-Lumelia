@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* Theme follows the system until the visitor picks one (data-theme on <html>). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #f6f9f8;
+  --bg-elev: #ffffff;
+  --fg: #0f272e;
+  --fg-2: #2a3c42;
+  --muted: #536a71;
+  --faint: #7d9197;
+  --rule: #dce5e4;
+  --accent: #0b7a6f;
+  --accent-strong: #08605a;
+  --accent-soft: #e2f2ef;
+  --glow: rgb(13 133 121 / 0.18);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #061316;
+  --bg-elev: #0b1e22;
+  --fg: #e9f2f1;
+  --fg-2: #c6d5d4;
+  --muted: #93a9ab;
+  --faint: #6c8487;
+  --rule: #18323a;
+  --accent: #34bcae;
+  --accent-strong: #6fd6ca;
+  --accent-soft: #0e2e2d;
+  --glow: rgb(52 188 174 / 0.22);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elev: var(--bg-elev);
+  --color-ink: var(--fg);
+  --color-text: var(--fg-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --font-display: var(--ff-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--ff-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--ff-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg-2);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Soft pulse for "live" status dots. */
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(52 188 174 / 0.55); }
+  70% { box-shadow: 0 0 0 7px rgb(52 188 174 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(52 188 174 / 0); }
+}
+.live-dot {
+  animation: live-pulse 2.2s ease-out infinite;
+}
+
+/* Slow pan on still screenshots so they feel alive. */
+@keyframes ken-burns {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.09) translate3d(-1.5%, -2%, 0); }
+}
+.ken-burns {
+  animation: ken-burns 9s ease-in-out infinite alternate;
+}
+
+/* Fine grid used behind sections. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 70%);
+}

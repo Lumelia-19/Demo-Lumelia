@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+.env*
+
+# Raw media lives on the media/captures branch; only processed files in public/media are committed.
+media-src/

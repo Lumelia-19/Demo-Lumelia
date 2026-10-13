@@ -1,0 +1,17 @@
+{
+  "jobs": [
+    { "id": "hero-network", "type": "video", "src": "media-src/placeholders/pexels-3129671-hd_1920_1080_30fps.mp4", "start": 6, "duration": 14, "crossfade": 1.5, "width": 1280, "crf": 28 },
+    { "id": "farouk-placeholder", "type": "video", "src": "media-src/placeholders/pexels-2516162-hd_1920_1080_24fps.mp4", "start": 0, "duration": 8.4, "crossfade": 1, "width": 1280, "fps": 24 },
+    { "id": "echotrust-placeholder", "type": "video", "src": "media-src/placeholders/pexels-852179-hd_1920_1080_30fps.mp4", "start": 4, "duration": 10, "crossfade": 1, "width": 1280 },
+    { "id": "about-ambient", "type": "video", "src": "media-src/placeholders/pexels-13522186-hd_1920_1080_25fps.mp4", "start": 2, "duration": 10, "crossfade": 1, "width": 1280, "fps": 25 },
+
+    { "id": "arabicpro-home", "type": "image", "src": "media-src/official/arabicpro-home.webp" },
+    { "id": "arabicpro-lesson", "type": "image", "src": "media-src/official/arabicpro-lesson.webp" },
+    { "id": "arabicpro-quiz", "type": "image", "src": "media-src/official/arabicpro-quiz-lit.webp" },
+    { "id": "arabicpro-onboarding-lantern", "type": "image", "src": "media-src/official/arabicpro-onboarding-lantern.webp" },
+    { "id": "arabicpro-onboarding-book", "type": "image", "src": "media-src/official/arabicpro-onboarding-book.webp" },
+
+    { "id": "doksima-graph", "type": "image", "src": "media-src/official/doksima-graphe-des-pieces.png", "width": 1800 },
+    { "id": "doksima-review-queue", "type": "image", "src": "media-src/official/doksima-file-de-revue.png", "width": 1800 }
+  ]
+}
