@@ -1,15 +1,23 @@
 import Link from 'next/link';
 
-import { container } from '@/lib/site';
+import { SLOTS } from '@/components/field/shapes';
 
 export default function NotFound() {
   return (
-    <section className={`${container} flex min-h-[70vh] flex-col items-start justify-center pb-24 pt-32`}>
-      <p className="font-mono text-xs uppercase tracking-[0.22em] text-accent">404</p>
-      <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight text-ink sm:text-6xl">This page doesn’t exist.</h1>
-      <p className="mt-5 text-lg text-muted">The link may be old, or mistyped.</p>
-      <Link href="/" className="mt-10 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-bg transition-colors hover:bg-accent">
-        Back to the homepage
+    <section
+      data-field={SLOTS.dust}
+      data-field-alpha="1"
+      data-chapter="(404) Nothing here"
+      className="flex min-h-svh flex-col justify-center px-5 py-32 sm:px-10"
+    >
+      <p className="label text-lumen">Error 404</p>
+      <h1 className="display mt-6 text-[clamp(3.4rem,9vw,9.6rem)]">
+        Nothing here.
+        <br />
+        <span className="ital text-lumen">Not even ciphertext.</span>
+      </h1>
+      <Link href="/" data-cursor="Home" className="label mt-12 inline-flex w-fit rounded-full bg-bone px-6 py-4 text-ink hover:bg-lumen">
+        ← Back to the start
       </Link>
     </section>
   );

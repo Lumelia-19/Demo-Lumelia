@@ -1,48 +1,53 @@
 'use client';
 
-import { motion, useScroll, useSpring } from 'motion/react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState, type MouseEvent } from 'react';
 
 import { profile } from '@/content/profile';
-import { container } from '@/lib/site';
 
-import { Icon } from './Icon';
-import { ThemeToggle } from './ThemeToggle';
+import { Clock } from './Clock';
+import { Scramble } from './Scramble';
+import { getLenis, scrollToHash } from './SmoothScroll';
 
-const nav = [
-  { href: '/#work', label: 'Work' },
-  { href: '/#security', label: 'Security' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#about', label: 'About' },
-  { href: '/#contact', label: 'Contact' },
+const chapters = [
+  { hash: '#work', label: 'Work' },
+  { hash: '#security', label: 'Security' },
+  { hash: '#principles', label: 'Principles' },
+  { hash: '#path', label: 'Path' },
+  { hash: '#whoami', label: 'Whoami' },
+  { hash: '#contact', label: 'Contact' },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const isHome = pathname === '/';
-  const [overHero, setOverHero] = useState(isHome);
+  const router = useRouter();
+  const [chapter, setChapter] = useState('');
   const [open, setOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
 
+  // The middle of the bar names the chapter under the centre of the screen.
   useEffect(() => {
-    if (!isHome) {
-      setOverHero(false);
-      return;
-    }
-    const update = () => setOverHero(window.scrollY < window.innerHeight * 0.82);
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setChapter(entry.target.getAttribute('data-chapter') ?? '');
+        }
+      },
+      { rootMargin: '-50% 0px -50% 0px' },
+    );
+    const observe = () => document.querySelectorAll('[data-chapter]').forEach((el) => io.observe(el));
+    observe();
+    const timer = window.setTimeout(observe, 400);
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.clearTimeout(timer);
+      io.disconnect();
     };
-  }, [isHome]);
+  }, [pathname]);
 
   useEffect(() => {
+    const lenis = getLenis();
+    if (open) lenis?.stop();
+    else lenis?.start();
     if (!open) return;
     const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', onKey);
@@ -51,93 +56,82 @@ export function SiteHeader() {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  // Over the (always dark) hero the header borrows the dark palette; once the
-  // page scrolls it follows the visitor's theme.
-  const transparent = overHero && !open;
+  const go = (hash: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setOpen(false);
+    if (pathname === '/') {
+      getLenis()?.start();
+      window.setTimeout(() => scrollToHash(hash), 60);
+    } else {
+      router.push(`/${hash}`);
+    }
+  };
 
   return (
-    <header
-      data-theme={transparent ? 'dark' : undefined}
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
-        transparent ? 'border-b border-transparent bg-transparent' : 'border-b border-rule bg-bg/92 backdrop-blur-xl'
-      }`}
-    >
-      <div className={`${container} flex h-16 items-center justify-between gap-4`}>
-        <Link href="/" className="group flex items-center gap-3" aria-label={`${profile.name}, home`}>
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent font-display text-sm font-semibold tracking-tight text-white shadow-[0_0_0_4px_var(--glow)] transition-transform group-hover:-rotate-6">
-            {profile.initials}
+    <>
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] text-bone mix-blend-difference">
+        <div className="flex items-start justify-between gap-6 px-5 py-5 sm:px-10 sm:py-6">
+          <Link href="/" className="label pointer-events-auto flex items-center gap-2.5" data-cursor="Home">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-bone" />
+            {profile.name}
+          </Link>
+          <span className="label hidden md:block" aria-live="polite">
+            {chapter && <Scramble key={chapter} text={chapter} start="mount" />}
           </span>
-          <span className="hidden font-display text-[15px] font-medium tracking-tight text-ink sm:block">{profile.name}</span>
-        </Link>
+          <nav aria-label="Site" className="label pointer-events-auto flex items-center gap-6">
+            <a href={profile.cv} download data-cursor="PDF">
+              CV ↓
+            </a>
+            <button type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="menu" data-cursor="Open">
+              Menu
+            </button>
+          </nav>
+        </div>
+      </header>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-full px-3.5 py-2 text-sm text-muted transition-colors hover:bg-ink/5 hover:text-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-1.5">
-          <ThemeToggle />
-          <a
-            href={profile.cv}
-            download
-            className="hidden items-center gap-2 rounded-full border border-rule px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent sm:inline-flex"
-          >
-            <Icon name="download" className="h-4 w-4" />
-            CV
-          </a>
-          <button
-            type="button"
-            className="grid h-9 w-9 place-items-center rounded-full text-ink md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            onClick={() => setOpen((value) => !value)}
-          >
-            <Icon name={open ? 'close' : 'menu'} />
+      <div id="menu" role="dialog" aria-modal="true" aria-label="Menu" inert={!open} className={`menu ${open ? 'is-open' : ''}`}>
+        <div className="flex items-start justify-between px-5 py-5 sm:px-10 sm:py-6">
+          <span className="label text-dim">Index</span>
+          <button type="button" onClick={() => setOpen(false)} className="label text-bone" data-cursor="Close">
+            Close
           </button>
         </div>
-      </div>
-
-      {open && (
-        <nav id="mobile-nav" aria-label="Main" className="border-t border-rule md:hidden">
-          <ul className={`${container} flex flex-col py-3`}>
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-xl px-3 py-3 font-display text-lg text-ink hover:bg-ink/5"
+        <nav aria-label="Chapters" className="flex flex-1 flex-col justify-center px-5 sm:px-10">
+          <ol>
+            {chapters.map((item, index) => (
+              <li key={item.hash} className="border-b border-line first:border-t">
+                <a
+                  href={`/${item.hash}`}
+                  onClick={go(item.hash)}
+                  data-cursor="Go"
+                  className="group flex items-baseline gap-5 py-2 sm:gap-8 sm:py-3"
                 >
-                  {item.label}
-                </Link>
+                  <span className="label w-10 shrink-0 text-dim">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="display text-[clamp(2.6rem,7.5vw,7rem)] text-bone transition-[color,transform] duration-500 ease-out group-hover:translate-x-4 group-hover:text-lumen">
+                    {item.label}
+                  </span>
+                </a>
               </li>
             ))}
-            <li>
-              <a
-                href={profile.cv}
-                download
-                className="mt-2 flex items-center gap-2 rounded-xl px-3 py-3 font-display text-lg text-accent hover:bg-ink/5"
-              >
-                <Icon name="download" className="h-5 w-5" />
-                Download CV (PDF)
-              </a>
-            </li>
-          </ul>
+          </ol>
         </nav>
-      )}
-
-      <motion.div
-        aria-hidden
-        style={{ scaleX: progress }}
-        className="absolute inset-x-0 bottom-[-1px] h-[2px] origin-left bg-accent"
-      />
-    </header>
+        <div className="label flex flex-wrap items-end justify-between gap-4 px-5 pb-6 text-mist sm:px-10">
+          <a href={`mailto:${profile.email}`} className="text-bone hover:text-lumen">
+            {profile.email}
+          </a>
+          <span>
+            Rennes · <Clock />
+          </span>
+          <span className="flex gap-5">
+            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
+              LinkedIn ↗
+            </a>
+            <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
+              GitHub ↗
+            </a>
+          </span>
+        </div>
+      </div>
+    </>
   );
 }

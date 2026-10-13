@@ -12,6 +12,7 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 await page.goto(`file://${source}`, { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
+await page.evaluate(() => window.renderField());
 await page.screenshot({ path: target, type: 'png' });
 await browser.close();
 await copyFile(target, target.replace('opengraph-image', 'twitter-image'));

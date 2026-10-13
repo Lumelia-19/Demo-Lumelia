@@ -11,6 +11,12 @@ export type Product = {
   url?: { href: string; label: string };
   frame: 'browser' | 'phone';
   media: Media;
+  /** One line, in the voice of the site. */
+  pitch: string;
+  /** Three short proofs shown on the work panel. */
+  facts: [string, string, string];
+  /** Glow colour behind the product's media. */
+  hue: string;
   summary: string;
   highlights: { title: string; body: string }[];
   stack: string[];
@@ -33,6 +39,9 @@ export const products: Product[] = [
     url: { href: 'https://www.farouk.app', label: 'farouk.app' },
     frame: 'browser',
     media: media.farouk,
+    pitch: 'An AI that job-hunts from the candidate’s own mailbox.',
+    facts: ['2,000+ users · 100+ paying Pro', 'CASA AL1 · OWASP ASVS pre-audit', 'Six languages · web, API, workers'],
+    hue: '#ff8a3d',
     summary:
       'A candidate uploads a CV and connects Gmail or Outlook. Farouk finds matching offers, writes the cover letters and sends the applications from the candidate’s own mailbox — by email or by filling in the company’s online form.',
     highlights: [
@@ -88,6 +97,9 @@ export const products: Product[] = [
     url: { href: 'https://arabicpro.app', label: 'arabicpro.app' },
     frame: 'phone',
     media: media.arabicpro,
+    pitch: 'Read Arabic in five minutes a day, audio first.',
+    facts: ['iOS & Android · Expo, React Native', 'Children’s data · voice consent apart', '570+ test files · OTA updates'],
+    hue: '#2fd3c0',
     summary:
       'From the alphabet to the words of the Quran, five minutes a day. You hear every letter before you are asked to recognise it, and reviews come back at the right moment.',
     highlights: [
@@ -140,6 +152,9 @@ export const products: Product[] = [
     url: { href: 'https://echotrust-ai.com', label: 'echotrust-ai.com' },
     frame: 'browser',
     media: media.echotrust,
+    pitch: 'Every Google review answered, never without a human.',
+    facts: ['B2B SaaS · Next.js 16, Drizzle', 'AES-256-GCM tokens · hashed API keys', 'MCP server with dry-run writes'],
+    hue: '#7f8cff',
     summary:
       'EchoTrust imports a business’s Google reviews across all its locations, drafts a reply to each one with AI and publishes it back to Google — only after a human has approved it.',
     highlights: [
@@ -189,6 +204,9 @@ export const products: Product[] = [
     tone: 'beta',
     frame: 'browser',
     media: media.doksima,
+    pitch: 'Catches edited payslips, and shows its evidence.',
+    facts: ['One encryption key per customer', 'EU storage · RFC 3161 timestamps', '~2,900 tests · abstains when unsure'],
+    hue: '#f2b33d',
     summary:
       'Doksima checks the supporting documents in a credit, rental or insurance file — payslips, bank statements — and shows what doesn’t add up, citing the evidence for every claim.',
     highlights: [

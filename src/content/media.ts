@@ -32,18 +32,6 @@ const pexels = (id: string, author?: string): Credit => ({
 });
 
 export const media = {
-  hero: {
-    kind: 'video',
-    base: '/media/hero-network',
-    alt: '',
-    placeholder: pexels('3129671'),
-  },
-  about: {
-    kind: 'video',
-    base: '/media/about-ambient',
-    alt: '',
-    placeholder: pexels('13522186', 'Raddy'),
-  },
   farouk: {
     kind: 'video',
     base: '/media/farouk-placeholder',

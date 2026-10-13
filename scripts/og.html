@@ -1,37 +1,80 @@
 <!doctype html>
-<html><head><meta charset="utf-8">
-<style>
-@font-face { font-family: 'SG'; src: url('../src/fonts/space-grotesk-var.woff2') format('woff2'); font-weight: 300 700; }
-@font-face { font-family: 'Plex'; src: url('../src/fonts/ibm-plex-sans-var.woff2') format('woff2'); font-weight: 100 700; }
-@font-face { font-family: 'PlexMono'; src: url('../src/fonts/ibm-plex-mono-500.woff2') format('woff2'); font-weight: 500; }
-* { box-sizing: border-box; margin: 0; }
-html, body { width: 1200px; height: 630px; }
-body { background: #061316; color: #e9f2f1; font-family: 'Plex', sans-serif; position: relative; overflow: hidden; }
-.grid { position: absolute; inset: 0; background-image: linear-gradient(to right, #18323a 1px, transparent 1px), linear-gradient(to bottom, #18323a 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse at 80% 10%, #000 0%, transparent 70%); opacity: .7; }
-.glow { position: absolute; width: 900px; height: 900px; right: -300px; top: -420px; background: radial-gradient(circle, rgba(52,188,174,.28), transparent 62%); }
-.wrap { position: absolute; inset: 0; padding: 64px 72px; display: flex; flex-direction: column; }
-.top { display: flex; align-items: center; gap: 18px; }
-.mono { width: 56px; height: 56px; border-radius: 16px; background: #0b7a6f; display: grid; place-items: center; font-family: 'SG'; font-weight: 600; font-size: 21px; color: #fff; box-shadow: 0 0 0 6px rgba(52,188,174,.18); }
-.name { font-family: 'SG'; font-weight: 500; font-size: 26px; letter-spacing: -.01em; }
-.role { font-size: 18px; color: #93a9ab; margin-top: 2px; }
-h1 { font-family: 'SG'; font-weight: 600; font-size: 76px; line-height: 1.02; letter-spacing: -.03em; margin-top: 54px; max-width: 980px; }
-h1 span { color: #6fd6ca; }
-.list { margin-top: auto; display: flex; gap: 44px; border-top: 1px solid #18323a; padding-top: 26px; }
-.item b { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 20px; }
-.item i { display: block; font-style: normal; color: #93a9ab; font-size: 16px; margin-top: 4px; padding-left: 20px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; }
-.live { background: #10b981; } .tf { background: #0ea5e9; } .beta { background: #f59e0b; }
-</style></head>
-<body>
-<div class="grid"></div><div class="glow"></div>
-<div class="wrap">
-  <div class="top"><div class="mono">BH</div><div><div class="name">Billel Helali</div><div class="role">Senior Full Stack Engineer · Rennes, France</div></div></div>
-  <h1>I build <span>0→1</span> products people trust with their data.</h1>
-  <div class="list">
-    <div class="item"><b><span class="dot live"></span>Farouk.app</b><i>Live · 2,000+ users</i></div>
-    <div class="item"><b><span class="dot tf"></span>ArabicPro</b><i>In TestFlight</i></div>
-    <div class="item"><b><span class="dot live"></span>EchoTrust</b><i>Live · first customers</i></div>
-    <div class="item"><b><span class="dot beta"></span>Doksima</b><i>Private beta</i></div>
-  </div>
-</div>
-</body></html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face { font-family: "Bricolage"; src: url("../public/fonts/bricolage-grotesque.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; }
+      @font-face { font-family: "Bricolage"; src: url("../public/fonts/bricolage-grotesque-arrows.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; unicode-range: U+2190-2193; }
+      @font-face { font-family: "Instrument Serif"; src: url("../public/fonts/instrument-serif-italic.woff2") format("woff2"); font-style: italic; }
+      @font-face { font-family: "JetBrains Mono"; src: url("../public/fonts/jetbrains-mono.woff2") format("woff2"); font-weight: 100 800; }
+      @font-face { font-family: "Kufi Glyphs"; src: url("../public/fonts/noto-kufi-arabic-glyphs.woff2") format("woff2"); font-weight: 600; unicode-range: U+0627-064A; }
+      * { box-sizing: border-box; margin: 0; }
+      html, body { width: 1200px; height: 630px; }
+      body { background: #08090b; color: #ece7de; position: relative; overflow: hidden; font-family: "Bricolage", sans-serif; }
+      canvas { position: absolute; inset: 0; }
+      .wrap { position: absolute; inset: 0; padding: 56px 64px; display: flex; flex-direction: column; }
+      .label { font-family: "JetBrains Mono", monospace; font-size: 15px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #a29e95; }
+      h1 { margin-top: auto; font-weight: 740; font-stretch: 80%; letter-spacing: -0.026em; word-spacing: 0.06em; line-height: 0.88; font-size: 128px; }
+      h1 em { display: block; font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: #ff9b45; font-size: 1.08em; line-height: 1; }
+      .row { display: flex; gap: 40px; margin-top: 40px; padding-top: 22px; border-top: 1px solid #24272d; }
+      .row span { display: flex; align-items: center; gap: 10px; font-family: "JetBrains Mono", monospace; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #ece7de; }
+      .row i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    </style>
+  </head>
+  <body>
+    <canvas id="field" width="1200" height="630"></canvas>
+    <div class="wrap">
+      <p class="label">Billel Helali — senior full-stack engineer — Rennes, FR</p>
+      <h1>Zero to one,<em>safely.</em></h1>
+      <div class="row">
+        <span><i style="background:#34d399"></i>Farouk.app</span>
+        <span><i style="background:#38bdf8"></i>ArabicPro</span>
+        <span><i style="background:#34d399"></i>EchoTrust</span>
+        <span><i style="background:#fbbf24"></i>Doksima</span>
+      </div>
+    </div>
+    <script>
+      // The same glyph field as the site, frozen: "0→1" drawn in characters.
+      const glyphs = [...'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789abdefghkmnpqrstuvwxyz{}[]()<>/\\|#$%&*+=_;:~^@?!', ...'ابتثجحخدذرزسشصضطظعغفقكلمنهوي'];
+      window.renderField = async () => {
+        await document.fonts.load('800 100px Bricolage', '0→1');
+        await document.fonts.load('500 12px "JetBrains Mono"', 'A');
+        await document.fonts.load('600 12px "Kufi Glyphs"', 'ب');
+        const W = 1200, H = 630, step = 9;
+        const mask = document.createElement('canvas');
+        mask.width = Math.ceil(W / step); mask.height = Math.ceil(H / step);
+        const m = mask.getContext('2d');
+        m.setTransform(1 / step, 0, 0, 1 / step, 0, 0);
+        m.fillStyle = '#fff';
+        m.font = '800 350px Bricolage';
+        m.fontStretch = 'condensed';
+        m.textAlign = 'center';
+        m.textBaseline = 'middle';
+        m.fillText('0→1', 905, 262);
+        const data = m.getImageData(0, 0, mask.width, mask.height).data;
+        const ctx = document.getElementById('field').getContext('2d');
+        let seed = 7;
+        const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (let i = 0; i < 1400; i++) {
+          const g = glyphs[Math.floor(rand() * glyphs.length)];
+          ctx.font = /[؀-ۿ]/.test(g) ? '600 9px "Kufi Glyphs"' : '500 10px "JetBrains Mono"';
+          ctx.fillStyle = `rgba(236,231,222,${0.06 + rand() * 0.16})`;
+          ctx.fillText(g, rand() * W, rand() * H);
+        }
+        for (let y = 0; y < mask.height; y++) {
+          for (let x = 0; x < mask.width; x++) {
+            const a = data[(y * mask.width + x) * 4 + 3];
+            if (a < 70) continue;
+            const g = glyphs[Math.floor(rand() * glyphs.length)];
+            const lit = rand() > 0.94;
+            ctx.font = /[؀-ۿ]/.test(g) ? '600 10px "Kufi Glyphs"' : '500 11px "JetBrains Mono"';
+            ctx.fillStyle = lit ? '#ff9b45' : `rgba(236,231,222,${0.45 + (a / 255) * 0.5})`;
+            ctx.fillText(g, (x + 0.5) * step, (y + 0.5) * step);
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

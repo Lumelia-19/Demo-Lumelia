@@ -1,40 +1,32 @@
 // Sensitive data handled in production, and the working principles behind it.
 
-export type IconName = 'bank' | 'file' | 'mail' | 'child' | 'key' | 'chart';
-
-export const sensitiveData: { icon: IconName; title: string; where: string; body: string }[] = [
+export const sensitiveData: { title: string; where: string; body: string }[] = [
   {
-    icon: 'bank',
     title: 'Regulated financial data',
     where: 'Seyna, insurer',
     body: 'AML/KYC obligations turned into deterministic, auditable rules with the compliance team; 5M+ registry records a month, traceable end to end.',
   },
   {
-    icon: 'file',
     title: 'Financial documents',
     where: 'Doksima',
     body: 'Payslips and bank statements under envelope encryption, one key per customer, stored in the EU; reports timestamped under RFC 3161.',
   },
   {
-    icon: 'mail',
     title: 'Mailboxes and CVs',
     where: 'Farouk.app',
     body: 'Restricted Gmail scopes under a CASA / OWASP ASVS pre-audit, PII redacted before any LLM call, GDPR erasure down to stored files.',
   },
   {
-    icon: 'child',
     title: 'Children’s data and voice',
     where: 'ArabicPro',
     body: 'Parental consent covering voice recordings, signed links that carry no personal data, in-app deletion, deny-by-default access.',
   },
   {
-    icon: 'key',
     title: 'Secrets, tokens and auth',
     where: 'Every product',
     body: 'AES-256-GCM and pgsodium at rest, HMAC-signed links, salted hashed API keys, constant-time checks, encryption that fails closed.',
   },
   {
-    icon: 'chart',
     title: 'Privacy-safe analytics and AI',
     where: 'Farouk.app',
     body: 'Aggregates only for groups of 10+ people; risky actions gated in code, never by the model, to resist prompt injection.',

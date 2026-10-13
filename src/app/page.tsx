@@ -1,21 +1,24 @@
-import { AboutSection } from '@/components/AboutSection';
-import { ContactSection } from '@/components/ContactSection';
-import { ExperienceSection } from '@/components/ExperienceSection';
-import { Hero } from '@/components/Hero';
-import { MetricStrip } from '@/components/MetricStrip';
-import { SecuritySection } from '@/components/SecuritySection';
-import { WorkSection } from '@/components/WorkSection';
+import { Contact } from '@/components/chapters/Contact';
+import { Hero } from '@/components/chapters/Hero';
+import { Manifesto } from '@/components/chapters/Manifesto';
+import { Path } from '@/components/chapters/Path';
+import { Principles } from '@/components/chapters/Principles';
+import { Security } from '@/components/chapters/Security';
+import { Whoami } from '@/components/chapters/Whoami';
+import { WorkGallery } from '@/components/chapters/WorkGallery';
+import { products } from '@/content/products';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <MetricStrip />
-      <WorkSection />
-      <SecuritySection />
-      <ExperienceSection />
-      <AboutSection />
-      <ContactSection />
+      <Manifesto />
+      <WorkGallery products={products} />
+      <Security />
+      <Principles />
+      <Path />
+      <Whoami />
+      <Contact />
     </>
   );
 }
